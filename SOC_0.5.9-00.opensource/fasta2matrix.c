@@ -1,0 +1,289 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <math.h>
+#define LEN_FILE_NAME 1024
+#include "fasta.h"
+#include "fasta.c"
+
+struct option {
+	char *input_file_name;
+	int segment_size;
+	int gap_size;
+	int AGCT_only;
+	int pattern_generate;
+	int proportion;
+	float total_propo;
+	int in_with_head;		/* 1: fasta, 0: line breaked sequence. */
+	int out_with_head;
+	int out_with_matrix_size;
+	int number_sample;
+	int size_head;
+	int size_body;
+	char *ignore_chars;
+	int is_printed;
+	int help;
+};
+
+int init_option(int size_input_file_name, struct option *opt){
+	int s = 0;
+	if(size_input_file_name > 0){
+		if((opt->input_file_name = calloc(size_input_file_name,sizeof(char))) == NULL){
+			fprintf(stderr,"[E]failed : calloc() in init_option() -- exit.\n");
+			exit(1);
+		}else{
+			s = s + 1;
+		}
+	}
+	opt->segment_size = 2;
+	opt->gap_size = 1;
+	opt->AGCT_only = 0;
+	opt->pattern_generate = 1;
+	opt->proportion = 0;
+	opt->total_propo = 1000;
+	opt->in_with_head = 1;
+	opt->out_with_head = 1;
+	opt->out_with_matrix_size = 1;
+	opt->number_sample = 15000;
+	opt->size_head = 128;
+	opt->size_body = 4000;
+	opt->is_printed = 0;
+	opt->help = 0;
+	return(s);
+};
+
+int get_option(int optc, char **optv, struct option *opt){
+	int s = 0;
+	int i;
+	for(i=0;i<optc;i++){
+		if(strncmp(optv[i],"if=",3) == 0){
+			sscanf(optv[i],"if=%s",opt->input_file_name);
+			if((s&1) == 0){
+				s = s + 1;
+			}
+		} else
+		if((strncmp(optv[i],"s=",2)) == 0){
+			sscanf(optv[i],"s=%d",&opt->segment_size);
+			if((s&2) == 0){
+				s = s + 2;
+			}
+		} else
+		if(strncmp(optv[i],"g=",2) == 0){
+			sscanf(optv[i],"g=%d",&opt->gap_size);
+			if((s&4) == 0){
+				s = s + 4;
+			}
+		} else
+		if(strncmp(optv[i],"n=",2) == 0){
+			sscanf(optv[i],"n=%d",&opt->number_sample);
+		} else
+		if(strncmp(optv[i],"hs=",3) == 0){
+			sscanf(optv[i],"hs=%d",&opt->size_head);
+		} else
+		if(strncmp(optv[i],"bs=",3) == 0){
+			sscanf(optv[i],"bs=%d",&opt->size_body);
+		} else
+		if(strcmp(optv[i],"--help") == 0){
+			opt->help = 1;
+		} else
+		if(strcmp(optv[i],"-h") == 0){
+			opt->help = 1;
+		} else
+		if(strcmp(optv[i],"--check") == 0){
+			opt->is_printed = 1;
+		} else
+		if(strcmp(optv[i],"-c") == 0){
+			opt->is_printed = 1;
+		} else
+		if(strcmp(optv[i],"-H") == 0){
+			opt->out_with_head = 1;
+		} else
+		if(strcmp(optv[i],"+H") == 0){
+			opt->out_with_head = 0;
+		} else
+		if(strcmp(optv[i],"-m") == 0){
+			opt->out_with_matrix_size = 1;
+		} else
+		if(strcmp(optv[i],"+m") == 0){
+			opt->out_with_matrix_size = 0;
+		} else
+		if(strncmp(optv[i],"-p",2) == 0){
+			opt->proportion = 1;
+			sscanf(optv[i],"-p%f",&opt->total_propo);
+		} else
+		if(strcmp(optv[i],"+p") == 0){
+			opt->proportion = 0;
+			opt->total_propo = 1000;
+		} else
+		{
+			printf("unknown option:%s:\n",optv[i]);
+			exit(1);
+		}
+		
+	}
+	return(s);
+};
+
+void check_option(){
+};
+
+void print_option(int status, struct option opt){
+	printf("status:%d:\n",status);
+	printf("input_file_name:%s:\n",opt.input_file_name);
+	printf("segment_size:%d:\n",opt.segment_size);
+	printf("step_size:%d:\n",opt.gap_size);
+	printf("AGCT_only:%d:\n",opt.AGCT_only);
+	printf("pattern_generate:%d:\n",opt.pattern_generate);
+	printf("proportion:%d:\n",opt.proportion);
+	printf("total_propo:%f:\n",opt.total_propo);
+	printf("in_with_head:%d:\n",opt.in_with_head);
+	printf("out_with_head:%d:\n",opt.out_with_head);
+	printf("out_with_matrix_size:%d:\n",opt.out_with_matrix_size);
+	printf("number_sample:%d:\n",opt.number_sample);
+	printf("size_head:%d:\n",opt.size_head);
+	printf("size_body:%d:\n",opt.size_body);
+};
+
+void help(void){
+	printf("USAGE:\n");
+	printf("  fasta2matrix [if=<file name>] [s=<segment size>] [g=<step size>] [n=<number of samples>] [hs=<header (annotation) size>] [bs=<body (plain sequence) size>] [--help|-h] [--check|-c] [-H|+H] [-m|+m] [-p<total frequency of oligonucleotides for nirmalization>|+p]\n");
+	printf("OPTIONS:\n");
+	printf("  file name: input file name, if not specify use stdin.\n");
+	printf("  segment size: fragment size of oligonucleotide.\n");
+	printf("  step size: window slide size.\n");
+	printf("  number of sample: number of sample.\n");
+	printf("  header size: annotation line (start with charactor \'>\') size.\n");
+	printf("  body size: sequence size which contain line brake or space.\n");
+	printf("  --help|-h: print this message.\n");
+	printf("  --check|-c: print parameters.\n");
+	printf("  -H: output with annotation.\n");
+	printf("  +H: output without annotation.\n");
+	printf("  -m: output with matrix size.\n");
+	printf("  +m: output without matrix size.\n");
+	printf("  -p: output format is proportional.\n");
+	printf("  +p: output format is plain count.\n");
+}
+
+int main(int argc, char **argv){
+	int i;
+	int j;
+	FILE *IN;
+	struct option opt;
+	struct fasta *fst;
+	int status = 0;
+	int file_open = 0;
+	int n_sample = 0;
+	char **sequence_array;
+	int array_column;
+	init_option(LEN_FILE_NAME,&opt);
+	status = get_option(argc-1,argv+1,&opt);
+	if(opt.help == 1){
+		help();
+		exit(0);
+	}
+	if(opt.is_printed == 1){
+		print_option(status,opt);
+		exit(0);
+	}
+	/* (* alloc fst */
+	if((fst = malloc(sizeof(struct fasta) * opt.number_sample)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() -- exit.\n");
+		exit(1);
+	}
+	for(i=0;i<opt.number_sample;i++){
+		if((fst[i].head = malloc(sizeof(char) * opt.size_head)) == NULL){
+			fprintf(stderr,"[E]failed : malloc() -- exit.\n");
+			exit(1);
+		} else {
+			fst[i].head[0] = '\0';
+		}
+	}
+	for(i=0;i<opt.number_sample;i++){
+		if((fst[i].body = malloc(sizeof(char) * opt.size_body)) == NULL){
+			fprintf(stderr,"[E]failed : malloc() -- exit\n");
+			exit(1);
+		} else {
+			fst[i].body[0] = '\0';
+		}
+	}
+	/* *) */
+	/* (* alloc sequence_array [(segment_size+1) * 4^segment_size] */
+	array_column = (int)pow(4,opt.segment_size);
+	if((sequence_array = malloc(sizeof(char *) * array_column)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() in main() -- exit.\n");
+		exit(1);
+	}
+	for(i=0;i<array_column;i++){
+		if((sequence_array[i] = malloc(sizeof(char) * (opt.segment_size + 1))) == NULL){
+			fprintf(stderr,"[E]failed : malloc() in main() -- exit.\n");
+			exit(1);
+		}
+	}
+	/* *) */
+	/* (* file open */
+	if(strlen(opt.input_file_name) > 0){
+		if((IN = fopen(opt.input_file_name,"r")) == NULL){
+			perror(opt.input_file_name);
+			exit(1);
+		} else {
+			file_open = 1;
+		}
+	} else {
+		IN = stdin;
+	}
+	/* *) */
+	/* (* read data */
+	n_sample = read_fastaArray_from_fp(IN,fst,opt.size_head,opt.size_body);
+	/* *) */
+	/* (* file close */
+	if(file_open >= 1){
+		fclose(IN);
+	}
+	/* *) */
+	/* (* make oligonucleotide sequence array */
+	mkoligonuc(opt.segment_size,sequence_array);
+	/* *) */
+	/* (* print array */
+	if(opt.out_with_matrix_size == 1){
+		printf("%d %d\n",array_column,n_sample);
+	}
+	if(opt.proportion == 0){
+		for(j=0;j<n_sample;j++){
+			if(opt.out_with_head == 1){
+				printf("%s ",fst[j].head);
+			}
+			count_pattern(sequence_array[0],fst[j].body,opt.gap_size,1);
+			for(i=1;i<array_column;i++){
+				printf(" ");
+				count_pattern(sequence_array[i],fst[j].body,opt.gap_size,1);
+			}
+			printf("\n");
+		}
+	} else
+	if(opt.proportion == 1){
+		for(j=0;j<n_sample;j++){
+			if(opt.out_with_head == 1){
+				printf("%s ",fst[j].head);
+			}
+			count_pattern_proportional(sequence_array[0],fst[j].body,opt.gap_size,1,opt.total_propo);
+			for(i=1;i<array_column;i++){
+				printf(" ");
+				count_pattern_proportional(sequence_array[i],fst[j].body,opt.gap_size,1,opt.total_propo);
+			}
+			printf("\n");
+		}
+
+	}
+	/* *) */
+
+	/* (* test */
+	/*
+	for(i=0;i<n_sample;i++){
+		printf("[%d]:%s::%s:\n",i,fst[i].head,fst[i].body);
+	}
+	*/
+	/* *) */
+
+	return(0);
+}

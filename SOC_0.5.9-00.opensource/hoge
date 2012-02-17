@@ -1,0 +1,25 @@
+
+checking sample file format ...
+first line length:3:
+2nd line length:7:
+temporary alloc line length:14:
+sample data format:2:
+sample dimensions:3:
+number of samples:9:
+ ... done.
+
+checking cluster file format ...
+first line length:3:
+2nd line length:27:
+temporary alloc line length:54:
+cluster data format:1:
+cluster dimensions:3:
+number of clusters:3:
+ ... done.
+
+entering euclidian learning loop.
+break at 4
+exiting euclidian learning loop.
+
+printing result ...
+ ... done.
