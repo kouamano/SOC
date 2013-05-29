@@ -22,7 +22,9 @@ $BRK = 1;	#Mathematica format
 
 $current_dir = `pwd`;
 chomp($current_dir);
-if(-d "/home/pub/include"){
+if(-d "../../include"){
+	$additional_inc = "../../include";
+}elsif(-d "/home/pub/include"){
 	$additional_inc = "/home/pub/include";
 }elsif(-d "include"){
 	$additional_inc = $current_dir."/include";
