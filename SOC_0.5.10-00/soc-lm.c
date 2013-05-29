@@ -864,7 +864,7 @@ int main(int argc, char **argv){
 		}
 
 		/* loop */
-		fprintf(stderr,message_loop_enter);
+		fprintf(stderr,"%s",message_loop_enter);
 		/*inittialize-loop*/
 		learning_loop_monitor(0,monitor,1,err_correct_rate,err_check,err_threshold,0,check_cl_interval,0,r_generate,generate_suppress_clst_num,generate_interval,MAX_num_clst,0,r_unified,unified_interval,unified_suppress_clst_num,0,delete_threshold,delete_interval,0,cutoff_value,cutoff_iteration,0,cutoff_ol_th,cutoff_gen_th,cutoff_interval,grouping_mode,grouping_radius_index,grouping_member_index,grouping_density_index,grouping_radius_ratio,0,move_rate,move_interval,r_move_suppress,dim_clst,num_clst,clst_matrix,dim_smpl,num_smpl,smpl_matrix,dif_table,clst_smpl_dist_table,clst_clst_dist_table,sum_ref_smpl_list,ave_ref_smpl_list,average_coordinate_data,&allocated_num_clst,&assigned_num_clst,&total_sum_dist,attrb_list_min,attrb_list_max,clst_status_list,clst_status_list_prev,sample_id,&loop_times,smpl_data_format,lfp);
 		/*iterations*/
@@ -876,7 +876,7 @@ int main(int argc, char **argv){
 				assigned_num_clst--;
 			}
 		}
-		fprintf(stderr,message_loop_exit);
+		fprintf(stderr,"%s",message_loop_exit);
 		/* *) */
 
 
