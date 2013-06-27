@@ -1,0 +1,18 @@
+## This file is automaticaly created ##
+INCOPT = -I../../include
+INST_DIR = /home/pub/bin/
+CCWOPT = -w2
+CCOPOPT = -O2
+CCLINKOPT = -lm
+ICCWOPT = -w1
+ICCOPOPT = -O2
+ICCLINKOPT = -lm
+GCCWOPT = -Wall
+GCCOPOPT = -O3
+GCCLINKOPT = -lm
+CCOPT = $(CCWOPT) $(CCOPOPT) $(CCLINKOPT)
+GCCOPT = $(GCCWOPT) $(GCCOPOPT) $(GCCLINKOPT)
+ICCOPT = $(ICCWOPT)
+OMPOPT = -openmp
+CC = gcc
+OPT =  $(GCCOPT) $(INCOPT)
