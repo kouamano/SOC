@@ -10,6 +10,7 @@
 /*************************************************/
 
 /**TODO*********************/
+/* revise scale ************/
 /***************************/
 
 #define SOC_INIT
@@ -396,7 +397,7 @@ int main(int argc, char **argv){
 		/* (* set max_dim_list to dim_min_and_max_table[1] */
 		max_list_from_matrix(dim_data,num_data,data_matrix,dim_min_and_max_table[1],0);
 		/* *) */
-		/* (* scaling */
+		/* (* scaling 
 		if(scale != 0){
 			for(i=0;i<2;i++){
 				for(j=0;j<dim_data;j++){
@@ -404,7 +405,7 @@ int main(int argc, char **argv){
 				}
 			}
 		}
-		/* *) */
+		*) */
 		/* (* set ticks to dim_min_to_max_matrix */
 		dim_min_to_max_matrix = f_alloc_mat(num_clst,dim_data);
 		make_min_to_max_table(num_clst,dim_data,dim_min_and_max_table,dim_min_to_max_matrix);
