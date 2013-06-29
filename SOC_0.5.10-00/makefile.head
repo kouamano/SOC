@@ -1,5 +1,5 @@
 ## This file is automaticaly created ##
-INCOPT = -I/home/pub/include
+INCOPT = -I../../include
 INST_DIR = /home/pub/bin/
 CCWOPT = -w2
 CCOPOPT = -O2
@@ -13,6 +13,6 @@ GCCLINKOPT = -lm
 CCOPT = $(CCWOPT) $(CCOPOPT) $(CCLINKOPT)
 GCCOPT = $(GCCWOPT) $(GCCOPOPT) $(GCCLINKOPT)
 ICCOPT = $(ICCWOPT)
-OMPOPT = -openmp
+OMPOPT = 
 CC = gcc
 OPT =  $(GCCOPT) $(INCOPT)
