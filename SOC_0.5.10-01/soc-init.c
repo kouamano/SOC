@@ -399,9 +399,9 @@ int main(int argc, char **argv){
 		/* *) */
 		/* (* TODO scaling TODO:TEST */
 		if(scale != 0){
-			int tmp_ave = 0;
-			int tmp_min = 0;
-			int tmp_max = 0;
+			float tmp_ave = 0;
+			float tmp_min = 0;
+			float tmp_max = 0;
 			for(i=0;i<2;i++){
 				for(j=0;j<dim_data;j++){
 					tmp_ave = (dim_min_and_max_table[0][j] + dim_min_and_max_table[1][j])/2;

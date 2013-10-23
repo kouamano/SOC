@@ -397,15 +397,22 @@ int main(int argc, char **argv){
 		/* (* set max_dim_list to dim_min_and_max_table[1] */
 		max_list_from_matrix(dim_data,num_data,data_matrix,dim_min_and_max_table[1],0);
 		/* *) */
-		/* (* scaling 
+		/* (* TODO scaling TODO:TEST */
 		if(scale != 0){
+			int tmp_ave = 0;
+			int tmp_min = 0;
+			int tmp_max = 0;
 			for(i=0;i<2;i++){
 				for(j=0;j<dim_data;j++){
-					dim_min_and_max_table[i][j] = dim_min_and_max_table[i][j]*scale;
+					tmp_ave = (dim_min_and_max_table[0][j] + dim_min_and_max_table[1][j])/2;
+					tmp_min = tmp_ave + (dim_min_and_max_table[0][j] - tmp_ave)*scale;
+					tmp_max = tmp_ave + (dim_min_and_max_table[1][j] - tmp_ave)*scale;
+					dim_min_and_max_table[0][j] = tmp_min;
+					dim_min_and_max_table[1][j] = tmp_max;
 				}
 			}
 		}
-		*) */
+		/* *) */
 		/* (* set ticks to dim_min_to_max_matrix */
 		dim_min_to_max_matrix = f_alloc_mat(num_clst,dim_data);
 		make_min_to_max_table(num_clst,dim_data,dim_min_and_max_table,dim_min_to_max_matrix);
