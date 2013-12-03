@@ -1,0 +1,68 @@
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:0/4:
+OPTION STRING:
+  print_help:0:
+  print_opt:0:
+  print_optstr:1:
+  ifh:i_file:
+  ofh:o_file:
+  str_frac:10,19,80:
+  num_fracs:3:
+  fracs:
+   10
+   19
+   80
+  :
+  FORMAT:Grid:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:1/4:
+OPTION STRING:
+  print_help:0:
+  print_opt:0:
+  print_optstr:1:
+  ifh:i_file:
+  ofh:o_file:
+  str_frac:10,19,80:
+  num_fracs:3:
+  fracs:
+   10
+   19
+   80
+  :
+  FORMAT:Grid:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:3/4:
+OPTION STRING:
+  print_help:0:
+  print_opt:0:
+  print_optstr:1:
+  ifh:i_file:
+  ofh:o_file:
+  str_frac:10,19,80:
+  num_fracs:3:
+  fracs:
+   10
+   19
+   80
+  :
+  FORMAT:Grid:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:2/4:
+OPTION STRING:
+  print_help:0:
+  print_opt:0:
+  print_optstr:1:
+  ifh:i_file:
+  ofh:o_file:
+  str_frac:10,19,80:
+  num_fracs:3:
+  fracs:
+   10
+   19
+   80
+  :
+  FORMAT:Grid:

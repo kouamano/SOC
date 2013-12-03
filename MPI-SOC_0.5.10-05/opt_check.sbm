@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#FTL_STAT: detail
+#FTL_INFO: all
+
+#MJS: -pc
+#MJS: -proc 4
+#MJS: -thread 1
+#MJS: -cwd
+#MJS: -time 1:00:00
+
+
+#BEFORE: mpi-soc-init
+
+#<RUN>
+mpirun ./mpi-soc-init -c ifh=i_file ofh=o_file frac=10,19,80 Grid > opt_check.out
+#</RUN>
+
+#AFTER: opt_check.out

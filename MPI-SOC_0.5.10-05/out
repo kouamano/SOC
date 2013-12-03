@@ -1,0 +1,12 @@
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:0/4:mpi import file:f.0:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:3/4:mpi import file:f.3:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:2/4:mpi import file:f.2:
+
+PROGRAM: mpi-soc-init 0.5.10-03
+rank/size:1/4:mpi import file:f.1:

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#FTL_STAT: detail
+#FTL_INFO: all
+
+#MJS: -pc
+#MJS: -proc 4
+#MJS: -thread 1
+#MJS: -cwd
+#MJS: -time 1:00:00
+
+
+#BEFORE: 0:mpi-soc-init,f.0
+#BEFORE: 1:mpi-soc-init,f.1
+#BEFORE: 2:mpi-soc-init,f.2
+#BEFORE: 3:mpi-soc-init,f.3
+
+#<RUN>
+mpirun ./mpi-soc-init  ifh=f ofh=of frac=10,19,80 Grid > multi-file-test.out
+#</RUN>
+
+#AFTER: multi-file-test.out

@@ -1,0 +1,1 @@
+#define MPI_RANK_STR_SIZE 64

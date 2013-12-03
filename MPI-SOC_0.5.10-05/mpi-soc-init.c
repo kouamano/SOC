@@ -1,0 +1,270 @@
+/* mpi-soc-init.c */
+
+/*************************************************/
+/* Copyright (c) 2011  AMANO, Kou                */
+/* kamano@affrc.go.jp                            */
+/*************************************************/
+
+/* (* define */
+#include "def_mpi.h"
+#define min(X,Y) ( (X) > (Y) ? (X) : (Y) )
+#define DB(X) X
+/* *) */
+
+/* (* include */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#ifdef MPI
+#include <mpi.h>
+#endif
+#include "include/alloc.c"
+#include "include/data_read.c"
+#include "include/math_base.c"
+#include "soc.h"
+#include "mpi-soc-init.h"
+/* *) */
+
+/* (* subroutines and the prototypes */
+#include "soc-init_options.h"
+#include "soc-init_options.c"
+/* *) */
+
+/* (* main */
+int main(int argc, char **argv){
+	/* (* declaration, inital var setting */
+	DB(printf("\nPROGRAM: mpi-soc-init "));
+	DB(printf(SOC_VERSION));
+	DB(printf("\n"));
+	int i;
+	int j;
+	struct options *OPT;
+		OPT = opt_alloc(OPT_STRUCT_SIZE);
+	int ie = 0;
+	int opt_err = 0;
+	int mpi_rank;
+	int mpi_size;
+	char *mpi_rank_str;
+		mpi_rank_str = c_calloc_vec(MPI_RANK_STR_SIZE);
+	char *mpi_import_file;
+		mpi_import_file = c_calloc_vec(FILE_NAME_SIZE);
+	char *export_file;
+		export_file = c_calloc_vec(FILE_NAME_SIZE);
+	FILE *mpi_FP;
+	int mpi_sample_dim = 0;
+	int mpi_sample_num = 0;
+	char **mpi_sample_head = NULL;
+	float **mpi_sample_mat = NULL;
+	int *MPI_sample_dims = NULL;
+	int *MPI_sample_nums = NULL;
+	int MPI_sample_total_num = 0;
+	float **MPI_sample_vecs = NULL;		//for Through
+	int *MPI_sample_vecs_sizes = NULL;
+	int *MPI_sample_vecs_disples = NULL;
+	float *MPI_sample_mean_vec = NULL;
+	float **MPI_sample_mean_mat = NULL;
+	/* *) */
+
+	/* (* MPI initialize */
+	#ifdef MPI
+	MPI_Status status;
+	MPI_Init(&argc, &argv);
+	MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
+	MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
+	#else
+	mpi_rank = 0;
+	mpi_size = 1;
+	#endif
+	DB(printf("rank/size:%d/%d:\n",mpi_rank,mpi_size));
+	/* *) */
+
+	/* (*option analyse */
+	init_options(OPT);
+	get_options(argc-1,argv+1,OPT);
+	analyse_options(OPT);
+	if((*OPT).print_help == 1){
+		print_usage();
+		print_options();
+		ie++;
+	}
+	if((*OPT).print_optstr == 1){
+		print_options_str(*OPT);
+		ie++;
+	}
+	if((*OPT).print_opt == 1){
+		print_options();
+		ie++;
+	}
+	if(ie > 0){
+		#ifdef MPI
+		MPI_Finalize();
+		#endif
+		exit(0);
+	}
+	opt_err = check_options(*OPT);
+	if(opt_err > 0){
+		fprintf(stderr,"fatal error.\n");
+		exit(0);
+	}
+	/* *) */
+	/* (* parallel import for multipule files */
+	/* (* open file */
+	sprintf(mpi_rank_str,"%d",mpi_rank);
+	sprintf(mpi_import_file,"%s",OPT->ifh);
+	strcat(mpi_import_file,".");
+	strcat(mpi_import_file,mpi_rank_str);
+	printf("mpi import file:%s:\n",mpi_import_file);
+	mpi_FP = fopen(mpi_import_file,"r");
+	if(mpi_FP == NULL){
+		perror(mpi_import_file);
+		#ifdef MPI
+		MPI_Finalize();
+		#endif
+		exit(1);
+	}
+	/* *) */
+	/* (* read data */
+	read_ilist_from_stream(1,mpi_FP,&mpi_sample_dim);
+	read_ilist_from_stream(1,mpi_FP,&mpi_sample_num);
+	DB(fprintf(stdout,"dim:%d:\n",mpi_sample_dim));
+	DB(fprintf(stdout,"num:%d:\n",mpi_sample_num));
+	mpi_sample_head = c_alloc_mat(mpi_sample_num,HEAD_SIZE);
+	mpi_sample_mat = f_alloc_mat(mpi_sample_num,mpi_sample_dim);
+	//MPI_sample_mean_vec = f_alloc_vec(mpi_sample_dim);
+	//MPI_sample_mean_mat = f_alloc_mat(mpi_size,mpi_sample_dim);
+	read_ID_ftable_from_stream(mpi_sample_num,mpi_sample_dim,mpi_FP,mpi_sample_mat,mpi_sample_head);
+	/* *) */
+	/* (* close file */
+	fclose(mpi_FP);
+	/* *) */
+	/* *) */
+	/* (* chack all dims */
+	#ifdef MPI
+	MPI_sample_dims = i_alloc_vec(mpi_size);
+	MPI_Allgather(&mpi_sample_dim,1,MPI_INT, MPI_sample_dims,1,MPI_INT, MPI_COMM_WORLD);
+	/*
+	for(i=0;i<mpi_size;i++){
+		printf("dims:%d,%d:\n",i,MPI_sample_dims[i]);
+	}
+	*/
+	for(i=1;i<mpi_size;i++){
+		if(MPI_sample_dims[0] != MPI_sample_dims[i]){
+			fprintf(stderr,"file format is not match ([0] != [%d]).\n",i);
+			MPI_Finalize();
+			exit(1);
+		}
+	}
+	#endif
+	/* *) */
+	/* (* allgather mpi_sample_num*/
+	MPI_sample_nums = i_calloc_vec(mpi_size);
+	#ifdef MPI
+	MPI_Allgather(&mpi_sample_num,1,MPI_INT, MPI_sample_nums,1,MPI_INT, MPI_COMM_WORLD);
+	#else
+	MPI_sample_nums[0] = mpi_sample_num;
+	#endif
+	for(i=0;i<mpi_size;i++){
+		DB(printf("rank,num:%d,%d:\n",i,MPI_sample_nums[i]));
+	}
+	/* *) */
+	/* (* for Through */
+	//DB(printf("FORMAT:%s:\n",OPT->FORMAT));
+	if(strcmp(OPT->FORMAT,"Through") == 0){
+		/*UNDER CONSTRUCTION*/
+		/* (* set *MPI_sample_vecs_sizes */
+		#ifdef MPI
+		MPI_sample_vecs_sizes = i_alloc_vec(mpi_size);
+		for(i=0;i<mpi_size;i++){
+			MPI_sample_vecs_sizes[i] = MPI_sample_nums[i]*mpi_sample_dim;
+		}
+		#endif
+		/* *) */
+		/* (* set *MPI_sample_vecs_disples */
+		#ifdef MPI
+		MPI_sample_vecs_disples = i_calloc_vec(mpi_size);
+		MPI_sample_vecs_disples[0] = 0;
+		for(i=1;i<mpi_size;i++){
+			MPI_sample_vecs_disples[i] =  (MPI_sample_vecs_disples[i-1] + MPI_sample_vecs_sizes[i-1]);
+		}
+		#endif
+		/* (* check */
+		#ifdef MPI
+		DB(printf("disples:"));
+		for(i=0;i<mpi_size;i++){
+			DB(printf(" %d",MPI_sample_vecs_disples[i]));
+		}
+		printf(":\n");
+		#endif
+		/* *) */
+		/* *) */
+		#ifdef MPI
+		MPI_sample_total_num = 0;
+		for(i=0;i<mpi_size;i++){
+			MPI_sample_total_num += MPI_sample_nums[i];
+		}
+		printf("MPI_sample_total_num:%d:\n",MPI_sample_total_num);
+		MPI_sample_vecs = f_alloc_mat(MPI_sample_total_num,mpi_sample_dim);
+		MPI_Gatherv(mpi_sample_mat[0],mpi_sample_num*mpi_sample_dim,MPI_FLOAT, MPI_sample_vecs[0],MPI_sample_vecs_sizes,MPI_sample_vecs_disples,MPI_FLOAT,0, MPI_COMM_WORLD);
+		#else
+		MPI_sample_total_num = mpi_sample_num;
+		MPI_sample_vecs = mpi_sample_mat;
+		#endif
+		/* (* output */
+		if(mpi_rank == 0){
+			DB(printf("ofh:%s:\n",OPT->ofh));
+			/* (* open file */
+			sprintf(mpi_rank_str,"%d",mpi_rank);
+			sprintf(export_file,"%s",OPT->ofh);
+			strcat(export_file,".");
+			strcat(export_file,mpi_rank_str);
+			printf("export file:%s:\n",export_file);
+			mpi_FP = fopen(export_file,"wr");
+			if(mpi_FP == NULL){
+				perror(mpi_import_file);
+				#ifdef MPI
+				MPI_Finalize();
+				#endif
+				exit(1);
+			}
+			/* *) */
+			/* (* write to file */
+			fprintf(mpi_FP,"%d %d\n",mpi_sample_dim,MPI_sample_total_num);
+			for(i=0;i<MPI_sample_total_num;i++){
+				fprintf(mpi_FP,"%f",MPI_sample_vecs[i][0]);
+				for(j=1;j<mpi_sample_dim;j++){
+					fprintf(mpi_FP," %f",MPI_sample_vecs[i][j]);
+				}
+				fprintf(mpi_FP,"\n");
+			}
+			/* *) */
+			/* (* close file */
+			fclose(mpi_FP);
+			/* *) */
+		}
+		/* *) */
+	}
+	/* *) */
+	/* (* for Diagonal */
+	else if(strcmp(OPT->FORMAT,"Diagonal") == 0){
+	}
+	/* *) */
+	/* (* for Central */
+	else if(strcmp(OPT->FORMAT,"Central") == 0){
+	}
+	/* *) */
+	/* (* for Grid */
+	else if(strcmp(OPT->FORMAT,"Grid") == 0){
+	}
+	/* *) */
+
+	/* (* MPI closing */
+	#ifdef MPI
+	MPI_Finalize();
+	#endif
+	/* *) */
+
+	/* (* end of main */
+	return(0);
+	/* *) */
+}
+/* *) */

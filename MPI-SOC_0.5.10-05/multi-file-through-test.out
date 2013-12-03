@@ -1,0 +1,50 @@
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:0/4:
+mpi import file:f.0:
+dim:4:
+num:12:
+rank,num:0,12:
+rank,num:1,15:
+rank,num:2,17:
+rank,num:3,10:
+disples: 0 48 108 176:
+MPI_sample_total_num:54:
+ofh:of:
+export file:of.0:
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:2/4:
+mpi import file:f.2:
+dim:4:
+num:17:
+rank,num:0,12:
+rank,num:1,15:
+rank,num:2,17:
+rank,num:3,10:
+disples: 0 48 108 176:
+MPI_sample_total_num:54:
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:3/4:
+mpi import file:f.3:
+dim:4:
+num:10:
+rank,num:0,12:
+rank,num:1,15:
+rank,num:2,17:
+rank,num:3,10:
+disples: 0 48 108 176:
+MPI_sample_total_num:54:
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:1/4:
+mpi import file:f.1:
+dim:4:
+num:15:
+rank,num:0,12:
+rank,num:1,15:
+rank,num:2,17:
+rank,num:3,10:
+disples: 0 48 108 176:
+MPI_sample_total_num:54:

@@ -1,0 +1,12 @@
+
+PROGRAM: mpi-soc-init 0.5.10-05
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:1/4:
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:3/4:
+
+PROGRAM: mpi-soc-init 0.5.10-05
+rank/size:2/4:
+rank/size:0/4:
