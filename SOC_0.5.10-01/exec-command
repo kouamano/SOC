@@ -1,4 +1,4 @@
-#1
+#1 hyperthreading:On
 time ./soc-lm sf=test_matrix_2000.sv cf=test_matrix_2000.cv.20.C > /dev/null
 
 real	0m0.299s
