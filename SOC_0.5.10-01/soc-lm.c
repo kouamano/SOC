@@ -844,14 +844,12 @@ int main(int argc, char **argv){
 		}else if(dist_func == 1){
 			strcpy(message_loop_enter,"entering cosine learning loop.\n");
 			strcpy(message_loop_exit,"exiting cosine learning loop.\n");
-
 			dist_triangle_func = cos_dist_triangle;		/* assign functions */
 			dist_table_func = cos_dist_table;		/* assign functions */
 			distance_func = cos_dist;			/* assign functions */
 		}else if(dist_func == 2){
 			strcpy(message_loop_enter,"entering naf learning loop.\n");
 			strcpy(message_loop_exit,"exiting naf learning loop.\n");
-
 			dist_triangle_func = naf_dist_triangle;		/* assign functions */
 			dist_table_func = naf_dist_table;		/* assign functions */
 			distance_func = naf_dist;			/* assign functions */
