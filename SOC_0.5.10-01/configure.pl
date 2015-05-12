@@ -34,10 +34,13 @@ $additional_inc = "-I".$additional_inc;
 if($OS_TYPE =~ /linux/){
 	$ICCPATH = `which icc`;
 	$FCCPATH = `which fcc`;
+	$FCCxPATH = `which fccpx`;
 	if($ICCPATH =~ /icc/){
 		$CMP = "icc";
-	}elsif($FCCPATH =~ /fcc/){
+	}elsif($FCCPATH =~ /fcc$/){
 		$CMP = "fcc";
+	}elsif($FCCxPATH =~ /fccpx/){
+		$CMP = "fccpx";
 	}else{
 		$CMP = "gcc";
 	}
