@@ -195,6 +195,28 @@ icc9-omp:
 	icc9 soc-smallestdsort.c -o soc-smallestdsort \$(ICCOPT) \$(OMPOPT) \$(INCOPT)
 	icc9 fasta2matrix.c -o fasta2matrix \$(ICCOPT) \$(OMPOPT) \$(INCOPT)
 
+fcc:
+	fcc soc-init.c -o soc-init \$(GCCOPT) \$(INCOPT)
+	fcc soc-lm.c -o soc-lm \$(GCCOPT) \$(INCOPT)
+	fcc soc-dtable.c -o soc-dtable \$(GCCOPT) \$(INCOPT)
+	fcc soc-split.c -o soc-split \$(GCCWOPT)
+	fcc soc-dsort.c -o soc-dsort \$(GCCOPT) \$(INCOPT)
+	fcc soc-csort.c -o soc-csort \$(GCCOPT) \$(INCOPT)
+	fcc soc-smalldsort.c -o soc-smalldsort \$(GCCOPT) \$(INCOPT)
+	fcc soc-smallestdsort.c -o soc-smallestdsort \$(GCCOPT) \$(INCOPT)
+	fcc fasta2matrix.c -o fasta2matrix \$(GCCOPT) \$(INCOPT)
+
+fccpx:
+	fccpx soc-init.c -o soc-init \$(GCCOPT) \$(INCOPT)
+	fccpx soc-lm.c -o soc-lm \$(GCCOPT) \$(INCOPT)
+	fccpx soc-dtable.c -o soc-dtable \$(GCCOPT) \$(INCOPT)
+	fccpx soc-split.c -o soc-split \$(GCCWOPT)
+	fccpx soc-dsort.c -o soc-dsort \$(GCCOPT) \$(INCOPT)
+	fccpx soc-csort.c -o soc-csort \$(GCCOPT) \$(INCOPT)
+	fccpx soc-smalldsort.c -o soc-smalldsort \$(GCCOPT) \$(INCOPT)
+	fccpx soc-smallestdsort.c -o soc-smallestdsort \$(GCCOPT) \$(INCOPT)
+	fccpx fasta2matrix.c -o fasta2matrix \$(GCCOPT) \$(INCOPT)
+
 gcc:
 	gcc soc-init.c -o soc-init \$(GCCOPT) \$(INCOPT)
 	gcc soc-lm.c -o soc-lm \$(GCCOPT) \$(INCOPT)
@@ -317,6 +339,20 @@ if(-e "makefile.head"){
 		}
 	}elsif($CMP eq "icc"){
 		system("echo 'CC = icc' >> makefile.head");
+		if($OMP == 0){
+			system("echo 'OPT =  \$(ICCOPT) \$(INCOPT)' >> makefile.head");
+		}elsif($OMP == 1){
+			system("echo 'OPT =  \$(ICCOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
+		}
+	}elsif($CMP eq "fcc"){
+		system("echo 'CC = fcc' >> makefile.head");
+		if($OMP == 0){
+			system("echo 'OPT =  \$(ICCOPT) \$(INCOPT)' >> makefile.head");
+		}elsif($OMP == 1){
+			system("echo 'OPT =  \$(ICCOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
+		}
+	}elsif($CMP eq "fccpx"){
+		system("echo 'CC = fccpx' >> makefile.head");
 		if($OMP == 0){
 			system("echo 'OPT =  \$(ICCOPT) \$(INCOPT)' >> makefile.head");
 		}elsif($OMP == 1){
