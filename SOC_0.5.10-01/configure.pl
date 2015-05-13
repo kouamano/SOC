@@ -347,16 +347,16 @@ if(-e "makefile.head"){
 	}elsif($CMP eq "fcc"){
 		system("echo 'CC = fcc' >> makefile.head");
 		if($OMP == 0){
-			system("echo 'OPT =  \$(ICCOPT) \$(INCOPT)' >> makefile.head");
+			system("echo 'OPT =  \$(ICCOPT) \$(ICCLINKOPT) \$(INCOPT)' >> makefile.head");
 		}elsif($OMP == 1){
-			system("echo 'OPT =  \$(ICCOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
+			system("echo 'OPT =  \$(ICCOPT) \$(ICCLINKOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
 		}
 	}elsif($CMP eq "fccpx"){
 		system("echo 'CC = fccpx' >> makefile.head");
 		if($OMP == 0){
-			system("echo 'OPT =  \$(ICCOPT) \$(INCOPT)' >> makefile.head");
+			system("echo 'OPT =  \$(ICCOPT) \$(ICCLINKOPT) \$(INCOPT)' >> makefile.head");
 		}elsif($OMP == 1){
-			system("echo 'OPT =  \$(ICCOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
+			system("echo 'OPT =  \$(ICCOPT) \$(ICCLINKOPT) \$(OMPOPT) \$(INCOPT)' >> makefile.head");
 		}
 	}elsif($CMP eq "cc"){
 		system("echo 'CC = cc' >> makefile.head");
