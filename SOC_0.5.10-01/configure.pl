@@ -101,7 +101,7 @@ soc-dtable: soc-dtable.c soc.h files.h soc.c
 	\$(CC) soc-dtable.c -o soc-dtable \$(OPT)
 
 soc-split: soc-split.h soc-split.c soc.c
-	\$(CC) soc-split.c -o soc-split -Wall
+	\$(CC) soc-split.c -o soc-split \$(OPT)
 
 soc-dsort: soc-dsort.c soc.h files.h soc.c
 	\$(CC) soc-dsort.c -o soc-dsort \$(OPT)
