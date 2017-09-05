@@ -1,6 +1,6 @@
 ## This file is automaticaly created ##
 INCOPT = -I../../include
-INST_DIR = /home/pub/bin/
+INST_DIR = /home/usr/local/bin/
 CCWOPT = -w2
 CCOPOPT = -O2
 CCLINKOPT = -lm
@@ -13,7 +13,7 @@ GCCLINKOPT = -lm
 CCOPT = $(CCWOPT) $(CCOPOPT) $(CCLINKOPT)
 GCCOPT = $(GCCWOPT) $(GCCOPOPT) $(GCCLINKOPT)
 ICCOPT = $(ICCWOPT)
-OMPOPT = 
+OMPOPT = -openmp
 CC = gcc
 OPT =  $(GCCOPT) $(INCOPT)
 
@@ -30,7 +30,7 @@ soc-dtable: soc-dtable.c soc.h files.h soc.c
 	$(CC) soc-dtable.c -o soc-dtable $(OPT)
 
 soc-split: soc-split.h soc-split.c soc.c
-	$(CC) soc-split.c -o soc-split -Wall
+	$(CC) soc-split.c -o soc-split $(OPT)
 
 soc-dsort: soc-dsort.c soc.h files.h soc.c
 	$(CC) soc-dsort.c -o soc-dsort $(OPT)
@@ -123,6 +123,28 @@ icc9-omp:
 	icc9 soc-smalldsort.c -o soc-smalldsort $(ICCOPT) $(OMPOPT) $(INCOPT)
 	icc9 soc-smallestdsort.c -o soc-smallestdsort $(ICCOPT) $(OMPOPT) $(INCOPT)
 	icc9 fasta2matrix.c -o fasta2matrix $(ICCOPT) $(OMPOPT) $(INCOPT)
+
+fcc:
+	fcc soc-init.c -o soc-init $(GCCOPT) $(INCOPT)
+	fcc soc-lm.c -o soc-lm $(GCCOPT) $(INCOPT)
+	fcc soc-dtable.c -o soc-dtable $(GCCOPT) $(INCOPT)
+	fcc soc-split.c -o soc-split $(GCCWOPT)
+	fcc soc-dsort.c -o soc-dsort $(GCCOPT) $(INCOPT)
+	fcc soc-csort.c -o soc-csort $(GCCOPT) $(INCOPT)
+	fcc soc-smalldsort.c -o soc-smalldsort $(GCCOPT) $(INCOPT)
+	fcc soc-smallestdsort.c -o soc-smallestdsort $(GCCOPT) $(INCOPT)
+	fcc fasta2matrix.c -o fasta2matrix $(GCCOPT) $(INCOPT)
+
+fccpx:
+	fccpx soc-init.c -o soc-init $(GCCOPT) $(INCOPT)
+	fccpx soc-lm.c -o soc-lm $(GCCOPT) $(INCOPT)
+	fccpx soc-dtable.c -o soc-dtable $(GCCOPT) $(INCOPT)
+	fccpx soc-split.c -o soc-split $(GCCWOPT)
+	fccpx soc-dsort.c -o soc-dsort $(GCCOPT) $(INCOPT)
+	fccpx soc-csort.c -o soc-csort $(GCCOPT) $(INCOPT)
+	fccpx soc-smalldsort.c -o soc-smalldsort $(GCCOPT) $(INCOPT)
+	fccpx soc-smallestdsort.c -o soc-smallestdsort $(GCCOPT) $(INCOPT)
+	fccpx fasta2matrix.c -o fasta2matrix $(GCCOPT) $(INCOPT)
 
 gcc:
 	gcc soc-init.c -o soc-init $(GCCOPT) $(INCOPT)
