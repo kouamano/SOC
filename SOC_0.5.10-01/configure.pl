@@ -17,7 +17,7 @@ $CC_W_OPT = '-w2';
 $CC_OP_OPT = '-O2';
 $CC_LINK_OPT = '-lm';
 $BODY_FILE = "makefile.body";
-$INST = "/home/pub/bin/";
+$INST = "/home/usr/local/bin";
 $BRK = 1;	#Mathematica format
 
 $current_dir = `pwd`;
