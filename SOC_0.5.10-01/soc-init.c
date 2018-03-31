@@ -582,7 +582,7 @@ int main(int argc, char **argv){
 		}else if(strncmp(coordinate_option,"node=Median",11) == 0){
 			//fprintf(stderr,"HOGE!!\n");
 			double delta = 0;
-			int data_ptr = 0;
+			//int data_ptr = 0;
 			int bin_ptr = 0;
 			int total_bin_count = 0;
 			//int tmp = 0;
@@ -638,7 +638,7 @@ int main(int argc, char **argv){
 
 			/* (* UNDER CHECK */
 			bins = i_calloc_vec(partition);
-			data_ptr = 0;
+			//data_ptr = 0;
 			bin_ptr = 0;
 			total_bin_count = 0;
 			//median_range = 0;

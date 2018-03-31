@@ -17,7 +17,7 @@ void learning_loop_monitor(int _loop_offset, int _monitor, int _loop, float _err
 	float clst_clst_min_dist = 0;		/* for clst unifying*/
 	int clst_clst_min_position[2] = {0,0};	/* for clst unifying*/
 	float *merged_list = NULL;
-	int *flaged_list = NULL;
+	//int *flaged_list = NULL;
 	float dist_clst_to_ave_smpl = 0;
 	float ave_ave_radius_clst = 0;		/* for generated */
 	float ave_ave_clst_num = 0;		/* for generated */
@@ -43,7 +43,7 @@ void learning_loop_monitor(int _loop_offset, int _monitor, int _loop, float _err
 	struct status generated_node;
 	int check_cl_count = 0;
 	merged_list = f_alloc_vec(_dim_clst);
-	flaged_list = i_alloc_vec(_num_clst);
+	//flaged_list = i_alloc_vec(_num_clst);
 	outlier = i_alloc_vec(_num_smpl);
 	del_clst_list = i_calloc_vec(_max_num_clst);
 	del_clst_count_list = i_calloc_vec(_max_num_clst);
