@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <complex.h>
 
 #include "soc.h"
 #include "files.h"
