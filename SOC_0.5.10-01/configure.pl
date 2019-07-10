@@ -44,7 +44,11 @@ if($OS_TYPE =~ /linux/){
 	}else{
 		$CMP = "gcc";
 	}
-	$OMP_SPEC = "-openmp";
+	if($CMP == "gcc"){
+		$OMP_SPEC = "-fopenmp";
+	}else{
+		$OMP_SPEC = "-openmp";
+	}
 }elsif($OS_TYPE =~ /irix/){
 	$CMP = "cc";
 	$CC_OP_OPT = "-O";
