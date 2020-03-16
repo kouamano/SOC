@@ -4,8 +4,8 @@
 #include <ctype.h>
 #include <math.h>
 #define LEN_FILE_NAME 1024
-#include "fasta.h"
-#include "fasta.c"
+#include "../../include/fasta.h"
+#include "../../include/fasta.c"
 
 struct option {
 	char *input_file_name;
