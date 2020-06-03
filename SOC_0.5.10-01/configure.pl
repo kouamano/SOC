@@ -265,6 +265,7 @@ install:
 	cp ./soc-smalldsort \$(INST_DIR)
 	cp ./soc-smallestdsort \$(INST_DIR)
 	cp ./fasta2matrix \$(INST_DIR)
+	cp ./refine-mat.pl \$(INST_DIR)
 	cp ./mksummary_from_soc_out.pl \$(INST_DIR)
 	cp ./add_cluster_origin.pl \$(INST_DIR)
 	cp ./drop_sample_zero.pl \$(INST_DIR)
