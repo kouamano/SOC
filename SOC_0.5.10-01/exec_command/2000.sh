@@ -1,1 +1,1 @@
-time /home/kamano/gitsrc/SOC/SOC_0.5.10-01/soc-lm sf=/home/kamano/gitsrc/SOC/SOC_0.5.10-01/test-data/test_matrix_2000.sv cf=/home/kamano/gitsrc/SOC/SOC_0.5.10-01/test-data/test_matrix_2000.cv.20.C > soc.mini.out
+time ../soc-lm sf=../test-data/test_matrix_2000.sv cf=../test-data/test_matrix_2000.cv.20.C
