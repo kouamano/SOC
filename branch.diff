@@ -3,5 +3,12 @@ echo === master ===
 echo '=== VS. openmp ==='
 
 echo '>> self'
-
 git diff master:branch.diff openmp:branch.diff
+
+echo '>> SOC_0.5.10-01'
+git diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
+git diff master:SOC_0.5.10-01/soc-init.c openmp:SOC_0.5.10-01/soc-init.c
+git diff master:SOC_0.5.10-01/soc-lm.c openmp:SOC_0.5.10-01/soc-lm.c
+git diff master:SOC_0.5.10-01/soc-split.c openmp:SOC_0.5.10-01/soc-split.c
+git diff master:SOC_0.5.10-01/fasta2matrix.c openmp:SOC_0.5.10-01/fasta2matrix.c
+git diff master:SOC_0.5.10-01/frequencies.c openmp:SOC_0.5.10-01/frequencies.c
