@@ -1,0 +1,7 @@
+echo === master ===
+
+echo '=== VS. openmp ==='
+
+echo '>> self'
+
+git diff master:branch.diff openmp:branch.diff
