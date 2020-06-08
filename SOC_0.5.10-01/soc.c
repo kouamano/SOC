@@ -15,6 +15,8 @@
  */
 
 /* (*version infomation */
+const char compiled_time[] = __TIME__;
+const char compiled_date[] = __DATE__;
 static char version_info[128] =	{"        VER. 0.5.10-01  /  2013.06.27 JST      "};
 #ifdef SOC_LM
 static char title[128] =	{"        SOC - Self Organizing Clustering       "};
