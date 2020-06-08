@@ -139,6 +139,7 @@ void message(void){
 	printf("\n");
 	printf("%s%s\n",head,bar);
 	printf("%s%s\n",head,version_info);
+	printf("%s        Compiled: %s ; %s\n",head,compiled_time,compiled_date);
 	printf("%s%s\n\n",head,bar);
 }
 
