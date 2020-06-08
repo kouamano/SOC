@@ -10,7 +10,7 @@
 
 $OS_TYPE = `echo \$OSTYPE`; chomp($OS_TYPE);
 $WHO = `whoami`; chomp($WHO);
-$OMP = 0;	#not use OMP
+$OMP = 0;	#for OpenMP
 $OMP_SPEC = '';
 $CMP = "cc";
 $CC_W_OPT = '-w2';
