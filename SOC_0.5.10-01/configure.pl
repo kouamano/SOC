@@ -201,14 +201,14 @@ icc9-omp:
 
 pgcc-omp:
 	pgcc soc-init.c -o soc-init \$(INCOPT)
-	pgcc soc-lm.c -o soc-lm \$(INCOPT)
+	pgcc soc-lm.c -o soc-lm -mp \$(INCOPT)
 	pgcc soc-dtable.c -o soc-dtable \$(INCOPT)
 	pgcc soc-split.c -o soc-split
 	pgcc soc-dsort.c -o soc-dsort \$(INCOPT)
 	pgcc soc-csort.c -o soc-csort \$(INCOPT)
 	pgcc soc-smalldsort.c -o soc-smalldsort \$(INCOPT)
 	pgcc soc-smallestdsort.c -o soc-smallestdsort \$(INCOPT)
-	pgcc fasta2matrix.c -o fasta2matrix \$(INCOPT)
+	pgcc fasta2matrix.c -o fasta2matrix -mp \$(INCOPT)
 
 fcc:
 	fcc soc-init.c -o soc-init \$(GCCOPT) \$(INCOPT)
