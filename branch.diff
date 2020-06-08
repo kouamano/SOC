@@ -9,6 +9,7 @@ echo '>> SOC_0.5.10-01'
 git diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
 git diff master:SOC_0.5.10-01/mksummary_from_soc_out.pl openmp:SOC_0.5.10-01/mksummary_from_soc_out.pl
 git diff master:SOC_0.5.10-01/refine-mat.pl openmp:SOC_0.5.10-01/refine-mat.pl
+git diff master:SOC_0.5.10-01/soc.c openmp:SOC_0.5.10-01/soc.c
 git diff master:SOC_0.5.10-01/soc-init.c openmp:SOC_0.5.10-01/soc-init.c
 git diff master:SOC_0.5.10-01/soc-lm.c openmp:SOC_0.5.10-01/soc-lm.c
 git diff master:SOC_0.5.10-01/soc-split.c openmp:SOC_0.5.10-01/soc-split.c
