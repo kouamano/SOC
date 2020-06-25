@@ -17,11 +17,11 @@
 /* (*version infomation */
 const char compiled_time[] = __TIME__;
 const char compiled_date[] = __DATE__;
-static char version_info[128] =	{"        VER. 0.5.10-01  /  2013.06.27 JST      "};
+static char version_info[128] =	{"        VER. 0.5.10-01  /  2020.06.15 JST      "};
 #ifdef SOC_LM
 static char title[128] =	{"        SOC - Self Organizing Clustering       "};
 static char author[128] =	{"                  by AMANO Kou                 "};
-static char affiliation[128] =	{"       @  NIAS / ULIS / U.Tsukuba / RIKEN      "};
+static char affiliation[128] =	{"    @ NIAS / ULIS / U.Tsukuba / RIKEN / NIMS   "};
 static char head[128] =		{"               "};
 static char bar[128] =		{"-----------------------------------------------"};
 #endif
