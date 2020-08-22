@@ -712,7 +712,7 @@ void learning_loop_monitor(int _loop_offset, int _monitor, int _loop, float _err
 			}
 			for(j=0;j<_num_clst;j++){
 				total_sq_err[j] = sqrt(total_sq_err[j]);
-				ave_total_sq_err =+ total_sq_err[j];
+				ave_total_sq_err += total_sq_err[j];
 			}
 			/* ave_total_sq_err = ave_total_sq_err/_num_clst; */
 			ave_total_sq_err = ave_total_sq_err/assigned_num_clst;
