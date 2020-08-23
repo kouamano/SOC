@@ -1,11 +1,13 @@
-echo === master ===
-
+echo '=== master ==='
 echo '=== VS. openmp ==='
-
-echo '>> self'
+echo '> self'
 git diff master:branch.diff openmp:branch.diff
 
-echo '>> SOC_0.5.10-01'
+echo '> SOC_0.5.10-01'
+echo '>> Makefile'
+git diff master:SOC_0.5.10-01/Makefile openmp:SOC_0.5.10-01/Makefile
+
+echo '>> programs'
 git diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
 git diff master:SOC_0.5.10-01/mksummary_from_soc_out.pl openmp:SOC_0.5.10-01/mksummary_from_soc_out.pl
 git diff master:SOC_0.5.10-01/refine-mat.pl openmp:SOC_0.5.10-01/refine-mat.pl
