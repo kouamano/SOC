@@ -4,6 +4,9 @@ echo '> self'
 git diff master:branch.diff openmp:branch.diff
 
 echo '> SOC_0.5.10-01'
+echo '>> configure.pl'
+git diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
+
 echo '>> Makefile'
 git diff master:SOC_0.5.10-01/Makefile openmp:SOC_0.5.10-01/Makefile
 
