@@ -76,7 +76,7 @@ void message(void){
 void usage(void){
 	printf("USAGE: \n");
 	printf("  soc-init -h\n");
-	printf("  soc-init if=<sample data file> of=<output data file> [frac=<number of cluster nodes> <FORMAT>]\n");
+	printf("  soc-init if=<sample data file> of=<output data file> frac=<number of cluster nodes> <FORMAT>\n");
 }
 
 void options(void){
