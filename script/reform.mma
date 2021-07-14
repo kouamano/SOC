@@ -1,0 +1,11 @@
+listToSVstr[l_List] := StringJoin[Riffle[Map[ToString, l], " "]]
+
+toSVstrLines[l_List] := StringJoin[Riffle[l, "\n"]]
+
+matToSVstrLines[m_List] := toSVstrLines[Map[listToSVstr, m]]
+
+matTokmeansSV[m_List] := Module[{size, mat},
+  size = Reverse[Dimensions[m]];
+  mat = Prepend[m, size];
+  matToSVstrLines[mat]
+  ]
