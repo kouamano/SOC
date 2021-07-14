@@ -7,5 +7,5 @@ matToSVstrLines[m_List] := toSVstrLines[Map[listToSVstr, m]]
 matTokmeansSV[m_List] := Module[{size, mat},
   size = Reverse[Dimensions[m]];
   mat = Prepend[m, size];
-  matToSVstrLines[mat]
+  matToSVstrLines[mat]<>"\n"
   ]
