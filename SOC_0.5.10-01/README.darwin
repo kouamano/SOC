@@ -1,0 +1,2 @@
+How to compile:
+% /usr/local/Cellar/gcc/12.2.0/bin/gcc-12 soc-lm.c -o soc-lm -Wall -O3 -lm -fopenmp -I../../include
