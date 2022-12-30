@@ -95,31 +95,31 @@ print <<"EOF";
 ## This file is automaticaly created and appended to head ##
 all: soc-init soc-lm soc-dtable soc-split soc-dsort soc-csort soc-smalldsort soc-smallestdsort fasta2matrix
 
-soc-init: soc-init.c soc.h files.h soc.c
+soc-init: soc-init.c soc.h files.h soc.c Makefile
 	\$(CC) soc-init.c -o soc-init \$(OPT)
 
-soc-lm: soc-lm.c soc.h files.h soc.c learning-loop-monitor.c
+soc-lm: soc-lm.c soc.h files.h soc.c learning-loop-monitor.c Makefile
 	\$(CC) soc-lm.c -o soc-lm \$(OPT)
 
-soc-dtable: soc-dtable.c soc.h files.h soc.c
+soc-dtable: soc-dtable.c soc.h files.h soc.c Makefile
 	\$(CC) soc-dtable.c -o soc-dtable \$(OPT)
 
-soc-split: soc-split.h soc-split.c soc.c
+soc-split: soc-split.h soc-split.c soc.c Makefile
 	\$(CC) soc-split.c -o soc-split \$(OPT)
 
-soc-dsort: soc-dsort.c soc.h files.h soc.c
+soc-dsort: soc-dsort.c soc.h files.h soc.c Makefile
 	\$(CC) soc-dsort.c -o soc-dsort \$(OPT)
 
-soc-csort: soc-csort.c soc.h files.h soc.c
+soc-csort: soc-csort.c soc.h files.h soc.c Makefile
 	\$(CC) soc-csort.c -o soc-csort \$(OPT)
 
-soc-smalldsort: soc-smalldsort.c soc.h files.h soc.c
+soc-smalldsort: soc-smalldsort.c soc.h files.h soc.c Makefile
 	\$(CC) soc-smalldsort.c -o soc-smalldsort \$(OPT)
 
-soc-smallestdsort: soc-smallestdsort.c soc.h files.h soc.c
+soc-smallestdsort: soc-smallestdsort.c soc.h files.h soc.c Makefile
 	\$(CC) soc-smallestdsort.c -o soc-smallestdsort \$(OPT)
 
-fasta2matrix: fasta2matrix.c
+fasta2matrix: fasta2matrix.c Makefile
 	\$(CC) fasta2matrix.c -o fasta2matrix \$(OPT)
 
 cc:
