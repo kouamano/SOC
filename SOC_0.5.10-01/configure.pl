@@ -13,6 +13,7 @@ $WHO = `whoami`; chomp($WHO);
 $OMP = 1;	#for OpenMP
 $OMP_SPEC = '';
 $CMP = "cc";
+$CMP_TYPE = "gcc";
 $CC_W_OPT = '-w2';
 $CC_OP_OPT = '-O2';
 $CC_LINK_OPT = '-lm';
@@ -43,6 +44,7 @@ if($OS_TYPE =~ /linux/){
 		$CMP = "fccpx";
 	}else{
 		$CMP = "gcc";
+		$CMP_TYPE = "gcc";
 	}
 	if($CMP == "gcc"){
 		$OMP_SPEC = "-fopenmp";
@@ -65,7 +67,7 @@ if($OS_TYPE =~ /linux/){
 	$CC_OP_OPT = '';
 	$OMP_SPEC = "-xopenmp";
 }elsif($OS_TYPE =~ /darwin/){
-	$CMP = "gcc";
+	$CMP = "/usr/local/Cellar/gcc/12.2.0/bin/gcc-12";
 	$OMP_SPEC = "-fopenmp";
 }else{
 	$CMP = "gcc";
@@ -347,7 +349,7 @@ system("echo ... done");
 
 if(-e "makefile.head"){
 	system("echo 'append to makefile.head'");
-	if($CMP eq "gcc"){
+	if($CMP_TYPE eq "gcc"){
 		system("echo 'CC = gcc' >> makefile.head");
 		if($OMP == 0){
 			system("echo 'OPT =  \$(GCCOPT) \$(INCOPT)' >> makefile.head");
