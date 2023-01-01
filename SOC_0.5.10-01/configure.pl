@@ -350,7 +350,8 @@ system("echo ... done");
 if(-e "makefile.head"){
 	system("echo 'append to makefile.head'");
 	if($CMP_TYPE eq "gcc"){
-		system("echo 'CC = gcc' >> makefile.head");
+		system("echo 'CMP = $CMP' >> makefile.head");
+		system("echo 'CC = \$(CMP)' >> makefile.head");
 		if($OMP == 0){
 			system("echo 'OPT =  \$(GCCOPT) \$(INCOPT)' >> makefile.head");
 		}elsif($OMP == 1){
