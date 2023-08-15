@@ -69,7 +69,7 @@ if($OS_TYPE =~ /linux/){
 }elsif($OS_TYPE =~ /darwin/){
 	$tmp = `brew info gcc|grep gcc|grep '*'`;
 	@tmp = split(/\s/,$tmp);
-	$CMP = $tmp[0] . "/bin/gcc-12";
+	$CMP = $tmp[0] . "/bin/gcc-13";
 	#$CMP = "/usr/local/Cellar/gcc/12.2.0/bin/gcc-12";
 	$OMP_SPEC = "-fopenmp";
 }else{
