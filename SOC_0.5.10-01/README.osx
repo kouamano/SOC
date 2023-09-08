@@ -1,5 +1,4 @@
 # osxでは以下のコマンドでコンパイルを確認。
-/usr/local/Cellar/gcc/13.1.0/bin/gcc-13 soc-lm.c -o soc-lm  -O3 -lm -openmp -I../../include
 /usr/local/Cellar/gcc/13.1.0/bin/gcc-13 soc-lm.c -o soc-lm  -O3 -lm -fopenmp -I../../include
 ## OSアップデートによりライブラリ・インクルードパス設定が不完全となることが多い。
 このま場合はdeveloperサイトからCommand Line Tools for Xcode（.dmg）をダウンロードして強制installする。
