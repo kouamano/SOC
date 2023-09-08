@@ -1,0 +1,3 @@
+# OMP option for gcc
+use "-fopenmp"
+gcc soc-lm.c -lm -fopenmp -I ../../include -o soc-lm
