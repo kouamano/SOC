@@ -76,6 +76,7 @@ if($OS_TYPE =~ /linux/){
 	$OMP_SPEC = "-fopenmp";
 }else{
 	$CMP = "gcc";
+	$OMP_SPEC = "-fopenmp";
 }
 
 &set_args(@ARGV);
