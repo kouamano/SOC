@@ -67,10 +67,12 @@ if($OS_TYPE =~ /linux/){
 	$CC_OP_OPT = '';
 	$OMP_SPEC = "-xopenmp";
 }elsif($OS_TYPE =~ /darwin/){
-	$tmp = `brew info gcc|grep gcc|grep '*'`;
-	@tmp = split(/\s/,$tmp);
-	$CMP = $tmp[0] . "/bin/gcc-13";
+	#$tmp = `brew info gcc|grep gcc|grep '*'`;
+	#@tmp = split(/\s/,$tmp);
+	#$CMP = $tmp[0] . "/bin/gcc-13";
 	#$CMP = "/usr/local/Cellar/gcc/12.2.0/bin/gcc-12";
+	$CMP = "/usr/local/Cellar/gcc/13.1.0/bin/gcc-13";
+	#$OMP_SPEC = "-openmp";
 	$OMP_SPEC = "-fopenmp";
 }else{
 	$CMP = "gcc";
