@@ -71,7 +71,7 @@ if($OS_TYPE =~ /linux/){
 	#@tmp = split(/\s/,$tmp);
 	#$CMP = $tmp[0] . "/bin/gcc-13";
 	#$CMP = "/usr/local/Cellar/gcc/12.2.0/bin/gcc-12";
-	$CMP = "/usr/local/Cellar/gcc/13.1.0/bin/gcc-13";
+	$CMP = "/usr/local/Cellar/gcc/13.2.0/bin/gcc-13";
 	#$OMP_SPEC = "-openmp";
 	$OMP_SPEC = "-fopenmp";
 }else{
