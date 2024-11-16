@@ -67,9 +67,7 @@ if($OS_TYPE =~ /linux/){
 	$CC_OP_OPT = '';
 	$OMP_SPEC = "-xopenmp";
 }elsif($OS_TYPE =~ /darwin/){
-	#$CMP = "/usr/local/Cellar/gcc/13.2.0/bin/gcc-13";
-	#$CMP = "/usr/local/Cellar/gcc/14.1.0/bin/gcc-14";
-	$CMP = "/usr/local/Cellar/gcc/14.1.0_2/bin/gcc-14";
+	$CMP = "/usr/local/Cellar/gcc/14.2.0_1/bin/gcc-14";
 	#$OMP_SPEC = "-openmp";
 	$OMP_SPEC = "-fopenmp";
 }else{
