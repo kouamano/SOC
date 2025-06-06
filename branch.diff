@@ -1,21 +1,21 @@
 echo '=== master ==='
 echo '=== VS. openmp ==='
 echo '> self'
-git diff master:branch.diff openmp:branch.diff
+git --no-pager diff master:branch.diff openmp:branch.diff
 
 echo '> SOC_0.5.10-01'
-echo '>> configure.pl'
-git diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
+echo '>> config'
+git --no-pager diff master:SOC_0.5.10-01/configure.pl openmp:SOC_0.5.10-01/configure.pl
 
 echo '>> programs'
 echo '>>> scripts'
-git diff master:SOC_0.5.10-01/mksummary_from_soc_out.pl openmp:SOC_0.5.10-01/mksummary_from_soc_out.pl
-git diff master:SOC_0.5.10-01/refine-mat.pl openmp:SOC_0.5.10-01/refine-mat.pl
+git --no-pager diff master:SOC_0.5.10-01/mksummary_from_soc_out.pl openmp:SOC_0.5.10-01/mksummary_from_soc_out.pl
+git --no-pager diff master:SOC_0.5.10-01/refine-mat.pl openmp:SOC_0.5.10-01/refine-mat.pl
 echo '>>> codes'
-git diff master:SOC_0.5.10-01/soc.c openmp:SOC_0.5.10-01/soc.c
-git diff master:SOC_0.5.10-01/soc.h openmp:SOC_0.5.10-01/soc.h
-git diff master:SOC_0.5.10-01/soc-init.c openmp:SOC_0.5.10-01/soc-init.c
-git diff master:SOC_0.5.10-01/soc-lm.c openmp:SOC_0.5.10-01/soc-lm.c
-git diff master:SOC_0.5.10-01/soc-split.c openmp:SOC_0.5.10-01/soc-split.c
-git diff master:SOC_0.5.10-01/fasta2matrix.c openmp:SOC_0.5.10-01/fasta2matrix.c
-git diff master:SOC_0.5.10-01/frequencies.c openmp:SOC_0.5.10-01/frequencies.c
+git --no-pager diff master:SOC_0.5.10-01/soc.c openmp:SOC_0.5.10-01/soc.c
+git --no-pager diff master:SOC_0.5.10-01/soc.h openmp:SOC_0.5.10-01/soc.h
+git --no-pager diff master:SOC_0.5.10-01/soc-init.c openmp:SOC_0.5.10-01/soc-init.c
+git --no-pager diff master:SOC_0.5.10-01/soc-lm.c openmp:SOC_0.5.10-01/soc-lm.c
+git --no-pager diff master:SOC_0.5.10-01/soc-split.c openmp:SOC_0.5.10-01/soc-split.c
+git --no-pager diff master:SOC_0.5.10-01/fasta2matrix.c openmp:SOC_0.5.10-01/fasta2matrix.c
+git --no-pager diff master:SOC_0.5.10-01/frequencies.c openmp:SOC_0.5.10-01/frequencies.c
