@@ -2,7 +2,6 @@
 
 ###################################
 ## configure.pl                  ##
-## last modified 2020.06.15 JST  ##
 ## configuration program for SOC ##
 ## to generate Makefile          ##
 ## by K.AMANO                    ##
