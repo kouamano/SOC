@@ -22,9 +22,9 @@
 
 
 /* (*function pointers */
-void (*dist_triangle_func)();
-void (*dist_table_func)();
-float (*distance_func)();
+void (*dist_triangle_func)(int,int,float**,float**);
+void (*dist_table_func)(int,float**,int,float**,int,float**);
+float (*distance_func)(int,float*,float*);
 /* *) */
 
 
